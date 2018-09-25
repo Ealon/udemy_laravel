@@ -11,3 +11,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
+
+// php artisan make:controller PostController
+// php artisan make:controller --resource PostController

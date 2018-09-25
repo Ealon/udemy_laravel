@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/post', 'PostController@index');
+
+/* ---------------------------------------
+
 Route::get('/about', function () {
   return 'about page';
 });
@@ -41,7 +46,7 @@ Route::get('/it/is/a/very/long/url', array('as'=>'url.instead', function () {
 }));
 // go to http://127.0.0.1:8000/it/is/a/very/long/url to check out
 
-
+--------------------------------------- */
 
 /*
 
