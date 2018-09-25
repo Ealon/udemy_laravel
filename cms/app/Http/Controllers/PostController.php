@@ -81,4 +81,9 @@ class PostController extends Controller
     {
         //
     }
+
+    public function showPost($id) {
+      return  view('post')->with('id', $id);
+      // return  view('post');
+    }
 }

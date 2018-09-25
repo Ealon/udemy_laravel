@@ -33,8 +33,9 @@ Route::resource('/posts', 'PostController');
 |        | DELETE    | posts/{post}      | posts.destroy | App\Http\Controllers\PostController@destroy | web  |
 |        | GET|HEAD  | posts/{post}/edit | posts.edit    | App\Http\Controllers\PostController@edit    | web  |
 +--------+-----------+-------------------+---------------+---------------------------------------------+--------------+
-
 --------------------------------------- */
+
+Route::get('/post/{id}', 'PostController@showPost');
 
 
 /* ---------------------------------------
