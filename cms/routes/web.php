@@ -16,7 +16,26 @@ Route::get('/', function () {
 });
 
 
-Route::get('/post', 'PostController@index');
+// Route::get('/post/{id}', 'PostController@index');
+
+Route::resource('/posts', 'PostController');
+/* ---------------------------------------
++--------+-----------+-------------------+---------------+---------------------------------------------+--------------+
+| Domain | Method    | URI               | Name          | Action                                      | Middleware  |
++--------+-----------+-------------------+---------------+---------------------------------------------+--------------+
+|        | GET|HEAD  | /                 |               | Closure                                     | web  |
+|        | GET|HEAD  | api/user          |               | Closure                                     | api,auth:api |
+|        | GET|HEAD  | posts             | posts.index   | App\Http\Controllers\PostController@index   | web  |
+|        | POST      | posts             | posts.store   | App\Http\Controllers\PostController@store   | web  |
+|        | GET|HEAD  | posts/create      | posts.create  | App\Http\Controllers\PostController@create  | web  |
+|        | GET|HEAD  | posts/{post}      | posts.show    | App\Http\Controllers\PostController@show    | web  |
+|        | PUT|PATCH | posts/{post}      | posts.update  | App\Http\Controllers\PostController@update  | web  |
+|        | DELETE    | posts/{post}      | posts.destroy | App\Http\Controllers\PostController@destroy | web  |
+|        | GET|HEAD  | posts/{post}/edit | posts.edit    | App\Http\Controllers\PostController@edit    | web  |
++--------+-----------+-------------------+---------------+---------------------------------------------+--------------+
+
+--------------------------------------- */
+
 
 /* ---------------------------------------
 

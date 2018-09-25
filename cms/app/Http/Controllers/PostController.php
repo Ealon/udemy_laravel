@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-      return "it's working.";
+      return "it's working";
     }
 
     /**
@@ -45,7 +45,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+      return "the SHOW method works".$id;
     }
 
     /**
