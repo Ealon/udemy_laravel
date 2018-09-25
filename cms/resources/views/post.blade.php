@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Post</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <h1>Post {{$id}}</h1>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+
+<h1>Post Page {{$name}} {{$id}}</h1>
+
+<h2>People:</h2>
+@if (count($people))
+  <ul>
+    @foreach ($people as $person)
+      <li>{{$person}}</li> 
+    @endforeach
+  </ul>
+@endif
+
+@endsection

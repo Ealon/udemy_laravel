@@ -82,8 +82,10 @@ class PostController extends Controller
         //
     }
 
-    public function showPost($id) {
-      return  view('post')->with('id', $id);
-      // return  view('post');
+    public function showPost($id, $name) {
+      // return  view('post')->with('id', $id);
+      $people = ["Edison", "Aaron", "Ealon", "Lisa"];
+      // $people = [];
+      return  view('post', compact('id', 'name', 'people'));
     }
 }
