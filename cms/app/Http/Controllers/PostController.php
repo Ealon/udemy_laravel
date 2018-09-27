@@ -82,7 +82,7 @@ class PostController extends Controller
         //
     }
 
-    public function showPost($id, $name) {
+    public function showPost($id=null, $name='Yilong') {
       // return  view('post')->with('id', $id);
       $people = ["Edison", "Aaron", "Ealon", "Lisa"];
       // $people = [];
