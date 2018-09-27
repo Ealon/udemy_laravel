@@ -20,7 +20,7 @@ class AddIsAdminColToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-          $table->integer('is_admin')->unsigned(); // unsigned means it can be negative
+          $table->integer('is_admin')->unsigned()->default(0); // unsigned means it can be negative
         });
     }
 

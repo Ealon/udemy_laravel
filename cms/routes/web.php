@@ -84,3 +84,36 @@ Route::get('/it/is/a/very/long/url', array('as'=>'url.instead', function () {
 +--------+----------+-------------------------+-------------+---------+--------------+
 
 */
+
+
+/*
+|--------------------------------------------------------------------------
+| Database Raw SQL queries
+|--------------------------------------------------------------------------
+|
+|
+*/
+
+Route::get('/insert', function(){
+  DB::insert('insert into posts(title, content) values(?, ?)', ['PHP with laravel', 'Laravel is the best thing that happens to PHP']);
+});
+
+Route::get('/read', function(){
+  $posts = DB::select('select * from posts where id=?', [1]);
+  print_r($posts);
+  foreach($posts as $post) {
+    return $post->title;
+  }
+});
+
+Route::get('/update', function(){
+  $updated = DB::update('update posts set title ="updated title" where id=?', [1]);
+
+  return $updated;
+});
+
+Route::get('/delete', function(){
+  $deleted = DB::delete('delete from posts where id=?', [1]);
+
+  return $deleted;
+});
