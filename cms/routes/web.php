@@ -1,5 +1,7 @@
 <?php
 
+use App\Post;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,4 +118,135 @@ Route::get('/delete', function(){
   $deleted = DB::delete('delete from posts where id=?', [1]);
 
   return $deleted;
+});
+
+
+Route::get('/insert2/{title}/{content}', function($title, $content){
+  DB::insert('insert into posts(title, content) values(?, ?)', [$title, $content]);
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Eloquent ORM
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/read1', function(){
+  // $posts = App\Post;
+  $posts = Post::all();
+  // return $posts;
+  foreach($posts as $post) {
+    return $post->title;
+  }
+
+});
+
+Route::get('/read2', function(){
+  // $posts = App\Post;
+  $post = Post::find(2);
+  return $post->title;
+
+});
+
+Route::get('/find/{id}', function($id){
+  // $post = Post::where('id', $id)->orderBy('id', 'desc')->take(1)->get();
+  $post = Post::where('id', $id)->orderBy('id', 'desc')->get();
+  return $post;
+});
+
+Route::get('/find2/{id}', function($id){
+  // $posts = Post::findOrFail($id);
+  // return $posts;
+
+  // $posts = Post::where('user_count', '<', 50)->fistOrFail();
+
+});
+
+Route::get('/basic-insert/{title?}/{content?}', function($title='default title', $content='default content'){
+  $post = new Post;
+  $post->title = $title;
+  $post->content = $content;
+
+  $post->save();
+});
+
+/** ------------------------------
+ * "create" accepts array, but the model needs to be configured by setting $fillable
+ */
+Route::get('/create', function(){
+  Post::create([
+    'title'=>'title create',
+    'content'=>'content create'
+    ]);
+});
+
+/**
+ * update data
+ */
+Route::get('/update/{id}/{content?}', function($id, $content='here is the new content updated.'){
+  Post::where('id', $id)->where('is_admin', 0)->update(['content'=>$content]);
+});
+
+/**
+ * delete data
+ */
+Route::get('/delete/{id}', function($id){
+  $post = Post::find($id);
+
+  $post->delete();
+});
+
+/**
+ * destroy data(accepts array)
+ */
+Route::get('/destroy', function(){
+  // Post::destroy(3);
+  Post::destroy([3,5]);
+});
+
+/**
+ * sotf delete
+ */
+Route::get('/softdelete/{id}', function($id){
+  Post::find($id)->delete();
+
+});
+
+/**
+ * read those soft-deleted data
+ */
+Route::get('/readsoftdelete/{id}', function($id){
+  // $post = Post::withTrashed()->where('id', $id)->get();
+  /**
+   * returns an array
+   * 
+   * [
+   *   {"id": 2,
+   *    "title": "title123",
+   *    "content": "heyyoyoyoyo",
+   *    "created_at": null,
+   *    "updated_at": "2018-09-29 09:00:19",
+   *    "is_admin": 0,
+   *    "deleted_at": "2018-09-29 09:00:19"
+   *   }
+   * ]
+   */
+  // $post = Post::withTrashed()->find($id);
+  /**
+   * returns the object
+   *   {"id": 2,
+   *    "title": "title123",
+   *    "content": "heyyoyoyoyo",
+   *    "created_at": null,
+   *    "updated_at": "2018-09-29 09:00:19",
+   *    "is_admin": 0,
+   *    "deleted_at": "2018-09-29 09:00:19"
+   *   }
+   */
+
+  $post = Post::onlyTrashed()->where('is_admin', 0)->get();
+
+  return $post;
 });
